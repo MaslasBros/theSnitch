@@ -1,0 +1,278 @@
+[30;1m2023-09-18 13:52:15[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/Snitch.py", line 67, in <module>
+    client.run(token)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 860, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 778, in start
+    await self.connect(reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 704, in connect
+    raise PrivilegedIntentsRequired(exc.shard_id) from None
+discord.errors.PrivilegedIntentsRequired: Shard ID None is requesting privileged intents that have not been explicitly enabled in the developer portal. It is recommended to go to https://discord.com/developers/applications/ and explicitly enable the privileged intents within your application's page. If this is not possible, then consider disabling the privileged intents instead.
+[30;1m2023-09-18 13:59:50[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/Snitch.py", line 67, in <module>
+    client.run(token)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 860, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 778, in start
+    await self.connect(reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 704, in connect
+    raise PrivilegedIntentsRequired(exc.shard_id) from None
+discord.errors.PrivilegedIntentsRequired: Shard ID None is requesting privileged intents that have not been explicitly enabled in the developer portal. It is recommended to go to https://discord.com/developers/applications/ and explicitly enable the privileged intents within your application's page. If this is not possible, then consider disabling the privileged intents instead.
+[30;1m2023-09-18 14:26:00[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/Snitch.py", line 67, in <module>
+    client.run(token)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 860, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 778, in start
+    await self.connect(reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 704, in connect
+    raise PrivilegedIntentsRequired(exc.shard_id) from None
+discord.errors.PrivilegedIntentsRequired: Shard ID None is requesting privileged intents that have not been explicitly enabled in the developer portal. It is recommended to go to https://discord.com/developers/applications/ and explicitly enable the privileged intents within your application's page. If this is not possible, then consider disabling the privileged intents instead.
+[30;1m2023-09-18 19:16:03[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+[30;1m2023-09-18 19:16:04[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has connected to Gateway (Session ID: 0fdf4aab90ff5346132dded5341e07b8).
+[30;1m2023-09-18 19:43:24[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-18 20:29:23[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-18 20:58:25[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 00:21:13[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 03:05:36[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 03:44:56[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 04:13:53[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 05:07:36[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 05:12:38[0m [31mERROR   [0m [35mdiscord.client[0m Attempting a reconnect in 0.21s
+[31mTraceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 659, in connect
+    await self.ws.poll_event()
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/gateway.py", line 646, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1000[0m
+[30;1m2023-09-19 05:12:46[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 09:08:49[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 11:42:39[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 14:45:48[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 16:44:49[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 16:57:12[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 17:54:39[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 18:21:14[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 18:22:11[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 19:26:08[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 19:33:00[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 20:46:18[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 21:27:17[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 23:07:00[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-19 23:22:21[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 01:29:18[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 01:39:37[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 03:03:44[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 03:41:55[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 06:30:33[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has successfully RESUMED session 0fdf4aab90ff5346132dded5341e07b8.
+[30;1m2023-09-20 06:52:48[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None session has been invalidated.
+[30;1m2023-09-20 06:52:54[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None has connected to Gateway (Session ID: ef9c78e71d769dbe70b1664b5ac33747).
+[30;1m2023-09-20 06:56:09[0m [34;1mINFO    [0m [35mdiscord.gateway[0m Shard ID None session has been invalidated.
+Bot is ready!
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Message content: 
+Filtered message: 
+Bot is ready!
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/Snitch.py", line 67, in <module>
+    with open('token.txt', 'r') as f:
+    ^^^^^^^^^^^^^^^^^
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 860, in run
+    asyncio.run(runner())
+  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+    await self.start(token, reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 778, in start
+    await self.connect(reconnect=reconnect)
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 659, in connect
+    await self.ws.poll_event()
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/gateway.py", line 646, in poll_event
+    raise ConnectionClosed(self.socket, shard_id=self.shard_id, code=code) from None
+discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 4004
