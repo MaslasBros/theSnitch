@@ -17,14 +17,9 @@ client = discord.Client(intents=bot_intents)
 redmine_headers = {"X-Redmine-API-Key": "4a2121484a69ce17c67d6654c1e60301181a5dce",
                "Content-Type": "application/json"}
 
-# Event handler for when the bot is ready
-@client.event
-async def on_ready():
-  print("Bot is ready!")
-
 # Event handler for when a message is sent in a channel
 @client.event
-async def on_message(message):
+async def process_message(message):
 
   # Check if the message is in the specified channel
   if message.channel.id != 1152230135244791818:
@@ -50,9 +45,13 @@ async def on_message(message):
    # Define a regular expression to find numbers following hashtags
   issue_number_regex = re.compile(r'(?<=\s#)\d+|(?<=^#)\d+')
 
+  issue_number = None
+
 # Loop through matched numbers in the message content to later construct a string with them
   for issue_number in issue_number_regex.findall(message.content):
     redmine_message = f'{message.author.name}: {message.content}'
+
+
 
  # Append attachment URLs to the string
     for attachment in message.attachments:
@@ -72,6 +71,16 @@ async def on_message(message):
     })
     print("Redmine Payload being sent:", redmine_payloads)
 
+  if issue_number:
+    # Message has the correct format, add a thumbs up reaction and remove potential thumbs down
+    await message.add_reaction("\U0001F44D")
+    await message.clear_reaction("\U0001F44E")
+    
+  else:
+    # Message has the incorrect format, add a thumbs down reaction and remove potential thumbs up
+    await message.add_reaction("\U0001F44E")
+    await message.clear_reaction("\U0001F44D")
+
   # Send the payloads to the Redmine API with PUT requests
   for key, value in redmine_payloads.items():
     print("Issue number: ", key)
@@ -87,6 +96,27 @@ async def on_message(message):
       response.status_code, 
       response.text, 
       sep='\n')
+
+# Event handler for when the bot is ready
+@client.event
+async def on_ready():
+  print("Bot is ready!")
+
+
+@client.event
+async def on_message(message):
+  if message.channel.id != 1152230135244791818:
+    return
+  
+  await process_message(message)
+
+@client.event
+async def on_message_edit(before, after):
+    if after.channel.id != 1152230135244791818:
+        return
+
+    # Process the edited message using the common logic
+    await process_message(after)    
 
 # Read the bot token from a file
 with open('token.txt', 'r') as f:
