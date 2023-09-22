@@ -12,14 +12,10 @@
         "X-Redmine-API-Key": "4a2121484a69ce17c67d6654c1e60301181a5dce",
         "Content-Type": "application/json"
     },
-    "redmine_payloads": {},
     "reactions":
     {
         "upvote": "👍",
         "downvote": "👎"
     },
-    "modules":
-    {
-        "redmine_module": "redmine_payload_builder"
-    }
+    "module": "redmine_payload_builder"
 }

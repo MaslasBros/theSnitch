@@ -9,9 +9,8 @@ import importlib
 with open('config.json', 'r' ) as config_file:
   config = json.load(config_file)
 
-redmine_module_name = config["modules"]["redmine_module"]
-
-redmine_module = importlib.import_module(redmine_module_name)
+module_path = config["module"]
+module = importlib.import_module(module_path)
 
 # Define the token the functionality of the bot
 token = config["token"]
@@ -34,13 +33,13 @@ client = discord.Client(intents=bot_intents)
 # Event handler for when a message is sent in a channel
 async def process_message(message):
 
-  redmine_request = config["requests"]
+  request = config["requests"]
   # Define the verb which will be used for the communication with the Redmine API 
-  redmine_request_verb = redmine_request.get("verb")
+  request_verb = request.get("verb")
   # Define the headers for making requests to the Redmine API
-  redmine_headers = config["headers"]
+  headers = config["headers"]
   # Create the template of the url which will be used for the communication with the Redmine API
-  redmine_request_url_template = redmine_request.get("url_template")
+  request_url_template = request.get("url_template")
 
   # Check if the message is in the specified channel
   if message.channel.id != channel_id:
@@ -61,16 +60,18 @@ async def process_message(message):
   print("Filtered message content:", message.content)
 
 # Get the dictionary from the config file to store payloads for Redmine
-  redmine_payloads = config.get("redmine_payloads", {})
+  payloads = {}
 
   regex_pattern = config["regex_pattern"]
 
    # Define a regular expression to find numbers following hashtags
   validation_regex = re.compile(regex_pattern)
 
+  # Define the validation point which will be used for the validation of the format of the messages
   validation_point = None
 
-  validation_point, redmine_payloads = redmine_module.build_redmine_payload(validation_regex, message, redmine_payloads)
+  # Call the method responsible for the building of the payload
+  validation_point, payloads = module.execute(validation_regex, message, payloads)
 
   if validation_point:
     # Message has the correct format, add a thumbs up reaction and remove potential thumbs down
@@ -86,21 +87,21 @@ async def process_message(message):
     await message.clear_reaction(correct_format_reaction)
 
   # Send the payloads to the Redmine API with PUT requests
-  for key, value in redmine_payloads.items():
+  for key, value in payloads.items():
     print("Issue number: ", key)
-    print("Redmine payload: ", value)
+    print("Payload: ", value)
 
     #Assign the number of the key to the url format to complete the url
-    url = redmine_request_url_template.format(key = key)
+    url = request_url_template.format(key = key)
 
     response = requests.put(
       url, 
       json=value, 
-      headers=redmine_headers)
+      headers=headers)
     
-    print(f'\n{redmine_request_verb} {url}\n',
+    print(f'\n{request_verb} {url}\n',
       json.dumps(indent=4, obj=value), 
-      redmine_headers,
+      headers,
       response.status_code, 
       response.text, 
       sep='\n')

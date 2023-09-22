@@ -1,5 +1,6 @@
-def build_redmine_payload(validation_regex, message, redmine_payloads):
+def execute(validation_regex, message, payloads):
 
+  # Search the message for the first mention of the validation point
   validation_point = validation_regex.search(message.content)
     # Loop through matched numbers in the message content to later construct a string with them
   for validation_point in validation_regex.findall(message.content):
@@ -14,7 +15,7 @@ def build_redmine_payload(validation_regex, message, redmine_payloads):
     message_sent += f'\n\n> Discord: {message.jump_url}'
 
     # Update the payload dictionary with the issue number as the key, as to not have duplicates
-    redmine_payloads.update({
+    payloads.update({
       validation_point:  
       {
         'issue': {
@@ -22,5 +23,5 @@ def build_redmine_payload(validation_regex, message, redmine_payloads):
         }
       }
     })
-    print("Redmine Payload being sent:", redmine_payloads)
-  return validation_point, redmine_payloads
+    print("Payload being sent:", payloads)
+  return validation_point, payloads
