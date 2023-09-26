@@ -5,11 +5,11 @@
         "verb": "PUT",
         "url_template": "https://project.maslasbros.com/issues/{key}.json"
     },
-    "token": "MTE1MjIxNDI1NTg3ODI3NTEzMw.GeieaC.HIiSmVaaqALRNw2lQJ_8183vuRM7tib3pOcMrk",
+    "token": "MTE1MjIxNDI1NTg3ODI3NTEzMw.GeieaC.HIiSmVaaqALRNw2lQJ_8183vuRM7tib3pOcMre",
     "regex_pattern": "(?<=\\s#)\\d+|(?<=^#)\\d+",
     "headers":
     {
-        "X-Redmine-API-Key": "4a2121484a69ce17c67d6654c1e60301181a5dce",
+        "X-Redmine-API-Key": "4a2121484a69ce17c67d6654c1e60301181a5dck",
         "Content-Type": "application/json"
     },
     "reactions":
