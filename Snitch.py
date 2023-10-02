@@ -5,9 +5,13 @@ import re
 import json
 import random
 import importlib
+import logging
 
 with open('config.json', 'r' ) as config_file:
   config = json.load(config_file)
+
+class InvalidConfigurationException(Exception):
+  pass
 
 module_path = config["module"]
 module = importlib.import_module(module_path)
@@ -16,10 +20,31 @@ module = importlib.import_module(module_path)
 token = config["token"]
 # Define the channel which the bot will watch and get the messages from
 channel_id = config["channel_id"]
+# Retreave the logging variables from the json file
+logging_config = config.get("logging", {})
+logging_enabled = logging_config.get("enabled")
+log_level = logging_config.get("log_level")
+log_path = logging_config.get("log_path")
+log_file = logging_config.get("log_file")
 # Get the reactions
 reactions = config.get("reactions", {})
 correct_format_reaction = reactions.get("upvote")
 incorrect_format_reaction = reactions.get("downvote")
+
+if not correct_format_reaction or not incorrect_format_reaction:
+  raise InvalidConfigurationException("Invalid reaction configuration in config.json") 
+
+if not log_path:
+  raise InvalidConfigurationException("Invalid reaction configuration in config.json") 
+
+# Check if logging is enabled and find the log file  
+if logging_enabled:
+  logging.basicConfig(
+    filename=os.path.join(log_path, log_file), 
+    level=getattr(logging, log_level.upper()),
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+  
+logger = logging.getLogger("discord")
 
 # Change the working directory to the location of this script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +57,8 @@ client = discord.Client(intents=bot_intents)
 
 # Event handler for when a message is sent in a channel
 async def process_message(message):
+
+ try:
 
   request = config["requests"]
   # Define the verb which will be used for the communication with the Redmine API 
@@ -88,8 +115,8 @@ async def process_message(message):
 
   # Send the payloads to the Redmine API with PUT requests
   for key, value in payloads.items():
-    print("Issue number: ", key)
-    print("Payload: ", value)
+    logger.info("Issue number: ", key)
+    logger.info("Payload: ", value)
 
     #Assign the number of the key to the url format to complete the url
     url = request_url_template.format(key = key)
@@ -99,17 +126,20 @@ async def process_message(message):
       json=value, 
       headers=headers)
     
-    print(f'\n{request_verb} {url}\n',
+    logger.info(f'\n{request_verb} {url}\n',
       json.dumps(indent=4, obj=value), 
       headers,
       response.status_code, 
       response.text, 
       sep='\n')
+    
+ except InvalidConfigurationException as e:
+    logger.error(f"Configuration error: {e}") 
 
 # Event handler for when the bot is ready
 @client.event
 async def on_ready():
-  print("Bot is ready!")
+  logger.info("Bot is ready!")
 
 # Check to see if the bot is in the correct channel
 @client.event

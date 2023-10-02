@@ -1,0 +1,4 @@
+2023-09-30 13:33:36,067 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-09-30 13:33:36,068 - discord.client - INFO - logging in using static token
+2023-09-30 13:33:37,061 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 5895e5947e09182a195dad6fc090d443).
+2023-09-30 13:33:39,114 - discord - INFO - Bot is ready!

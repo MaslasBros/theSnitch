@@ -92,4 +92,5 @@ TheSnitch is licensed under the [MIT License](LICENSE). See the [LICENSE](LICENS
 ## Acknowledgments
 
 - We thank the Discord.py and Redmine Python libraries for their valuable contributions.
-- Special thanks to our contributors and users for their feedback and support.
+- Special thanks to Kryall for building the base of the code this final version of the bot is based on. 
+- Finally, we thank to our contributors and users for their feedback and support.
