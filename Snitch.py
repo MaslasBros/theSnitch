@@ -28,21 +28,29 @@ log_path = logging_config.get("log_path")
 log_file = logging_config.get("log_file")
 # Get the reactions
 reactions = config.get("reactions", {})
-correct_format_reaction = reactions.get("upvote")
-incorrect_format_reaction = reactions.get("downvote")
+correct_format_reaction = reactions.get("upvote").strip()
+incorrect_format_reaction = reactions.get("downvote").strip()
 
-if not correct_format_reaction or not incorrect_format_reaction:
-  raise InvalidConfigurationException("Invalid reaction configuration in config.json") 
+def is_valid_reaction(reaction_string):
+  # Check if the string consists of valid Unicode emoji characters
+  return all(ord(char) <= 0x1F64F for char in reaction_string)
+
+if (
+  not is_valid_reaction(correct_format_reaction)
+  ):
+    raise InvalidConfigurationException("Invalid reaction configuration in config.json")
+if not is_valid_reaction(incorrect_format_reaction):
+  raise InvalidConfigurationException("Invalid reaction configuration in config.json")
 
 if not log_path:
-  raise InvalidConfigurationException("Invalid reaction configuration in config.json") 
+  raise InvalidConfigurationException("Invalid log path in config.json") 
 
 # Check if logging is enabled and find the log file  
 if logging_enabled:
   logging.basicConfig(
     filename=os.path.join(log_path, log_file), 
     level=getattr(logging, log_level.upper()),
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    format="%(asctime)s - %(levelname)s - %(message)s")
   
 logger = logging.getLogger("discord")
 
@@ -73,7 +81,7 @@ async def process_message(message):
     return
   
   # Print the original message content
-  print("Original message content:", message.content)
+  logger.info(f'''Original message content: %s {message.content}''')
 
 # Emojis can be classed as characters with an ID exceeding 0xA9; the following removes such characters from the message's raw text.
   filtered_content = "" 
@@ -84,7 +92,7 @@ async def process_message(message):
   message.content = filtered_content
 
 # Print the filtered message content
-  print("Filtered message content:", message.content)
+  logger.info(f'''Filtered message content: {message.content}''')
 
 # Get the dictionary from the config file to store payloads for Redmine
   payloads = {}
@@ -102,21 +110,23 @@ async def process_message(message):
 
   if validation_point:
     # Message has the correct format, add a thumbs up reaction and remove potential thumbs down
-    await message.add_reaction(correct_format_reaction)
-    await message.clear_reaction(incorrect_format_reaction)
+    if correct_format_reaction and incorrect_format_reaction:
+      await message.add_reaction(correct_format_reaction)
+      await message.clear_reaction(incorrect_format_reaction)
       
     if random.randint(1,4096) == 1:
       await message.add_reaction('🌟')
  
   else:
     # Message has the incorrect format, add a thumbs down reaction and remove potential thumbs up
-    await message.add_reaction(incorrect_format_reaction)
-    await message.clear_reaction(correct_format_reaction)
+    if correct_format_reaction and incorrect_format_reaction:
+      await message.add_reaction(incorrect_format_reaction)
+      await message.clear_reaction(correct_format_reaction)
 
   # Send the payloads to the Redmine API with PUT requests
   for key, value in payloads.items():
-    logger.info("Issue number: ", key)
-    logger.info("Payload: ", value)
+   # logger.info(f'''Issue number: {key}''')
+    #logger.info(f'''Payload: {value}''')
 
     #Assign the number of the key to the url format to complete the url
     url = request_url_template.format(key = key)
@@ -126,12 +136,12 @@ async def process_message(message):
       json=value, 
       headers=headers)
     
-    logger.info(f'\n{request_verb} {url}\n',
+    logger.info("Request: %s %s\nPayload: %s\nHeaders: %s\nResponse: %s %s", request_verb, url,
       json.dumps(indent=4, obj=value), 
       headers,
       response.status_code, 
-      response.text, 
-      sep='\n')
+      response.text
+      )
     
  except InvalidConfigurationException as e:
     logger.error(f"Configuration error: {e}") 

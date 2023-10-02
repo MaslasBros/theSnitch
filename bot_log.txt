@@ -2,3 +2,195 @@
 2023-09-30 13:33:36,068 - discord.client - INFO - logging in using static token
 2023-09-30 13:33:37,061 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 5895e5947e09182a195dad6fc090d443).
 2023-09-30 13:33:39,114 - discord - INFO - Bot is ready!
+2023-10-02 10:21:07,361 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 10:21:07,369 - discord.client - INFO - logging in using static token
+2023-10-02 10:21:08,330 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: a05bd46edb3ba6b83d99172877150b22).
+2023-10-02 10:21:10,393 - discord - INFO - Bot is ready!
+2023-10-02 10:21:39,617 - discord - INFO - Payload: 
+2023-10-02 10:21:40,750 - discord.client - ERROR - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/discord/theSnitch/Snitch.py", line 149, in on_message
+    await process_message(message)
+  File "/home/discord/theSnitch/Snitch.py", line 129, in process_message
+    logger.info(f'\n{request_verb} {url}\n',
+  File "/usr/lib/python3.11/logging/__init__.py", line 1489, in info
+    self._log(INFO, msg, args, **kwargs)
+TypeError: Logger._log() got an unexpected keyword argument 'sep'
+2023-10-02 10:24:22,648 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 10:24:22,649 - discord.client - INFO - logging in using static token
+2023-10-02 10:24:23,628 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 4777781f867c5bef07afc8e6a0ccb4cc).
+2023-10-02 10:24:25,761 - discord - INFO - Bot is ready!
+2023-10-02 10:24:52,936 - discord - INFO - Payload: 
+2023-10-02 10:24:53,406 - discord.client - ERROR - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/discord/theSnitch/Snitch.py", line 149, in on_message
+    await process_message(message)
+  File "/home/discord/theSnitch/Snitch.py", line 129, in process_message
+    logger.info(f'\n{request_verb} {url}\n',
+  File "/usr/lib/python3.11/logging/__init__.py", line 1489, in info
+    self._log(INFO, msg, args, **kwargs)
+TypeError: Logger._log() got an unexpected keyword argument 'sep'
+2023-10-02 10:25:34,683 - discord - INFO - Payload: 
+2023-10-02 10:25:36,352 - discord.client - ERROR - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/discord/theSnitch/Snitch.py", line 149, in on_message
+    await process_message(message)
+  File "/home/discord/theSnitch/Snitch.py", line 129, in process_message
+    logger.info(f'\n{request_verb} {url}\n',
+  File "/usr/lib/python3.11/logging/__init__.py", line 1489, in info
+    self._log(INFO, msg, args, **kwargs)
+TypeError: Logger._log() got an unexpected keyword argument 'sep'
+2023-10-02 10:28:41,699 - discord - INFO - Payload: 
+2023-10-02 10:28:43,148 - discord.client - ERROR - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/discord/theSnitch/Snitch.py", line 149, in on_message
+    await process_message(message)
+  File "/home/discord/theSnitch/Snitch.py", line 129, in process_message
+    logger.info(f'\n{request_verb} {url}\n',
+  File "/usr/lib/python3.11/logging/__init__.py", line 1489, in info
+    self._log(INFO, msg, args, **kwargs)
+TypeError: Logger._log() got an unexpected keyword argument 'sep'
+2023-10-02 11:12:45,342 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 11:12:45,344 - discord.client - INFO - logging in using static token
+2023-10-02 11:12:46,273 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 94a65cc68378ee44b7f107a18611c998).
+2023-10-02 11:12:48,303 - discord - INFO - Bot is ready!
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+INFO:discord.client:logging in using static token
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: cbdcf6102652b63cbc0f947a2622d3f1).
+INFO:discord:Bot is ready!
+INFO:discord.gateway:Shard ID None has successfully RESUMED session cbdcf6102652b63cbc0f947a2622d3f1.
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+INFO:discord.client:logging in using static token
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 0d7224c09983cb00e2d60ac023420e39).
+INFO:discord:Bot is ready!
+2023-10-02 11:21:03,348 - discord.client - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 11:21:03,348 - discord.client - INFO - logging in using static token
+2023-10-02 11:21:04,224 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 148b4db035a73d6e7772e4e92cb7744c).
+2023-10-02 11:21:06,267 - discord - INFO - Bot is ready!
+2023-10-02 11:21:39,947 - discord - INFO - Payload: 
+2023-10-02 11:21:40,487 - discord.client - ERROR - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "/home/discord/theSnitch/bot-env/lib/python3.11/site-packages/discord/client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "/home/discord/theSnitch/Snitch.py", line 159, in on_message
+    await process_message(message)
+  File "/home/discord/theSnitch/Snitch.py", line 139, in process_message
+    logger.info(f'\n{request_verb} {url}\n',
+  File "/usr/lib/python3.11/logging/__init__.py", line 1489, in info
+    self._log(INFO, msg, args, **kwargs)
+TypeError: Logger._log() got an unexpected keyword argument 'sep'
+PyNaCl is not installed, voice will NOT be supported
+logging in using static token
+Shard ID None has connected to Gateway (Session ID: 2ecbb7e27f74afa756f0f6d0cef4191a).
+Bot is ready!
+Payload: 
+PyNaCl is not installed, voice will NOT be supported
+logging in using static token
+Shard ID None has connected to Gateway (Session ID: a3106d1dc3ea7d9b38d4ae61b7f4a6a2).
+Bot is ready!
+Original message content: gdasfgag
+Filtered message content: gdasfgag
+Original message content: # fdsagsfd
+Filtered message content: # fdsagsfd
+Original message content: #1050
+
+das ist ein test
+Filtered message content: #1050
+
+das ist ein test
+Issue number: 1050
+Payload: {'issue': {'notes': 'nmihal: #1050\n\ndas ist ein test\n\n> Discord: https://discord.com/channels/459095468803227648/1152230135244791818/1158367066085150790'}}
+PyNaCl is not installed, voice will NOT be supported
+logging in using static token
+Shard ID None has connected to Gateway (Session ID: 056c9db13696c01000a24bfb624bc216).
+Bot is ready!
+Original message content: %s #1050
+
+moar
+Filtered message content: #1050
+
+moar
+Issue number: 1050
+Payload: {'issue': {'notes': 'nmihal: #1050\n\nmoar\n\n> Discord: https://discord.com/channels/459095468803227648/1152230135244791818/1158369374323871835'}}
+2023-10-02 11:48:54,647 - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 11:48:54,648 - INFO - logging in using static token
+2023-10-02 11:48:55,627 - INFO - Shard ID None has connected to Gateway (Session ID: 76dd446629c7c7fada359611f4f7fa3b).
+2023-10-02 11:48:57,665 - INFO - Bot is ready!
+2023-10-02 11:49:04,422 - INFO - Original message content: %s gasdfgadfs
+2023-10-02 11:49:04,422 - INFO - Filtered message content: gasdfgadfs
+2023-10-02 11:49:13,128 - INFO - Original message content: %s # 
+fdasfasdf
+2023-10-02 11:49:13,128 - INFO - Filtered message content: # 
+fdasfasdf
+2023-10-02 11:49:17,415 - INFO - Original message content: %s #
+
+fdasfas
+2023-10-02 11:49:17,416 - INFO - Filtered message content: #
+
+fdasfas
+2023-10-02 11:50:16,743 - INFO - Original message content: %s #1050
+
+fdsaafhjasdf
+2023-10-02 11:50:16,744 - INFO - Filtered message content: #1050
+
+fdsaafhjasdf
+2023-10-02 11:50:16,744 - INFO - Issue number: 1050
+2023-10-02 11:50:16,744 - INFO - Payload: {'issue': {'notes': 'nmihal: #1050\n\nfdsaafhjasdf\n\n> Discord: https://discord.com/channels/459095468803227648/1152230135244791818/1158370365681184828'}}
+2023-10-02 12:01:54,648 - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 12:01:54,649 - INFO - logging in using static token
+2023-10-02 12:01:55,602 - INFO - Shard ID None has connected to Gateway (Session ID: f992d329cac2091ef4eb6e9ee8d0df3c).
+2023-10-02 12:01:57,631 - INFO - Bot is ready!
+2023-10-02 12:02:03,618 - INFO - Original message content: %s hfdsghsd
+2023-10-02 12:02:03,618 - INFO - Filtered message content: hfdsghsd
+2023-10-02 12:02:14,464 - INFO - Original message content: %s #1050
+
+logger test
+2023-10-02 12:02:14,465 - INFO - Filtered message content: #1050
+
+logger test
+2023-10-02 12:02:15,000 - INFO - Request: PUT https://project.maslasbros.com/issues/1050.json
+Payload: {
+    "issue": {
+        "notes": "nmihal: #1050\n\nlogger test\n\n> Discord: https://discord.com/channels/459095468803227648/1152230135244791818/1158373375933161584"
+    }
+}
+Headers: {'X-Redmine-API-Key': '65b93eb1afd76a43d29063e215daded5902edfd7', 'Content-Type': 'application/json'}
+Response: 204 
+2023-10-02 12:03:05,886 - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 12:03:05,887 - INFO - logging in using static token
+2023-10-02 12:03:06,986 - INFO - Shard ID None has connected to Gateway (Session ID: 36d0963dec5f48f683914437f6168fbc).
+2023-10-02 12:03:09,017 - INFO - Bot is ready!
+2023-10-02 12:03:11,530 - INFO - Original message content: %s # gfdfgdag
+2023-10-02 12:03:11,530 - INFO - Filtered message content: # gfdfgdag
+2023-10-02 12:03:17,127 - INFO - Original message content: %s #
+
+fdsagasd
+2023-10-02 12:03:17,127 - INFO - Filtered message content: #
+
+fdsagasd
+2023-10-02 12:07:11,706 - WARNING - PyNaCl is not installed, voice will NOT be supported
+2023-10-02 12:07:11,707 - INFO - logging in using static token
+2023-10-02 12:07:12,531 - INFO - Shard ID None has connected to Gateway (Session ID: 12229ddf9823ce79223452d699b6162a).
+2023-10-02 12:07:14,563 - INFO - Bot is ready!
+2023-10-02 12:07:20,462 - INFO - Original message content: %s fdasgasg
+2023-10-02 12:07:20,462 - INFO - Filtered message content: fdasgasg
+2023-10-02 12:07:28,247 - INFO - Original message content: %s #1050
+fdsafas
+2023-10-02 12:07:28,248 - INFO - Filtered message content: #1050
+fdsafas
+2023-10-02 12:07:31,421 - INFO - Request: PUT https://project.maslasbros.com/issues/1050.json
+Payload: {
+    "issue": {
+        "notes": "nmihal: #1050\nfdsafas\n\n> Discord: https://discord.com/channels/459095468803227648/1152230135244791818/1158374692135108640"
+    }
+}
+Headers: {'X-Redmine-API-Key': '65b93eb1afd76a43d29063e215daded5902edfd7', 'Content-Type': 'application/json'}
+Response: 204 

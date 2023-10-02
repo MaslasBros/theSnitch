@@ -61,6 +61,13 @@ Here's an example of the `config.json` file:
         "downvote": "YOUR_REACTION_TO_INCORRECT_MESSAGE"
     },
     "module": "YOUR_MODULE_NAME"
+        "logging": 
+    {
+        "enabled": true,
+        "log_level": "info",
+        "log_path": "path/to/your/log/file",
+        "log_file": "log_file_name.txt" 
+    }
 }
 ```
 Furthermore, to import a custom python script which is responsible for a connection using other REST APIs, that script must have the following format:
