@@ -60,8 +60,8 @@ Here's an example of the `config.json` file:
         "upvote": "YOUR_REACTION_TO_CORRECT_MESSAGE",
         "downvote": "YOUR_REACTION_TO_INCORRECT_MESSAGE"
     },
-    "module": "YOUR_MODULE_NAME"
-        "logging": 
+    "module": "YOUR_MODULE_NAME",
+    "logging": 
     {
         "enabled": true,
         "log_level": "info",
