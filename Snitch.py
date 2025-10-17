@@ -18,8 +18,6 @@ module = importlib.import_module(module_path)
 
 # Define the token the functionality of the bot
 token = config["token"]
-# Define the channel which the bot will watch and get the messages from
-channel_id = config["channel_id"]
 # Retreave the logging variables from the json file
 logging_config = config.get("logging", {})
 logging_enabled = logging_config.get("enabled")
@@ -75,10 +73,6 @@ async def process_message(message):
   headers = config["headers"]
   # Create the template of the url which will be used for the communication with the Redmine API
   request_url_template = request.get("url_template")
-
-  # Check if the message is in the specified channel
-  if message.channel.id != channel_id:
-    return
   
   # Print the original message content
   logger.info(f'''Original message content: %s {message.content}''')
@@ -154,16 +148,12 @@ async def on_ready():
 # Check to see if the bot is in the correct channel
 @client.event
 async def on_message(message):
-  if message.channel.id != channel_id:
-    return
   await process_message(message)
 
 
 # Function responsible for the editing of a posted message
 @client.event
 async def on_message_edit(before, after):
-    if after.channel.id != channel_id:
-        return 
     # Process the edited message using the common logic
     await process_message(after)    
 
