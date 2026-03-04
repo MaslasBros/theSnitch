@@ -41,9 +41,6 @@ request_url = config["url"]
 # Retreave and compile the configured regex patterns
 regex_patterns = config.get("regex_patterns", {})
 
-update_regex = re.compile(regex_patterns["update"].strip())
-list_regex = re.compile(regex_patterns["list"].strip())
-report_regex = re.compile(regex_patterns["report"].strip())
 
 # Validates the compiled regular expressions
 def is_valid_regex(pattern: str) -> bool:
@@ -52,16 +49,27 @@ def is_valid_regex(pattern: str) -> bool:
         return True
     except re.error:
         return False
+    
+pattern = regex_patterns["update"].strip()
 
-if not is_valid_regex(update_regex): 
+if not is_valid_regex(pattern): 
   raise InvalidConfigurationException("Invalid update regex pattern configuration in config.json")
 
-if not is_valid_regex(list_regex): 
+update_regex = re.compile(pattern)
+
+pattern = regex_patterns["list"].strip();
+
+if not is_valid_regex(pattern): 
   raise InvalidConfigurationException("Invalid list regex pattern configuration in config.json")
 
-if not is_valid_regex(report_regex): 
+list_regex = re.compile(pattern)
+
+pattern = regex_patterns["report"].strip();
+
+if not is_valid_regex(pattern): 
   raise InvalidConfigurationException("Invalid report regex pattern configuration in config.json")
 
+report_regex = re.compile(pattern)
 #
 # Reactions
 #
@@ -117,9 +125,9 @@ async def is_bot_mentioned(message):
 
 # Based on the message content it should decide the action that the bot shall execute.
 async def select_command(message):
-  if report_regex.search(message):
+  if report_regex.search(message.content):
     report_issue(message)
-  elif list_regex.search(message):
+  elif list_regex.search(message.content):
     list_issues(message)
   else:
     update_issue(message)
@@ -151,9 +159,6 @@ async def list_issues(message):
     await message.channel.send(response)
   else:
     await message.add_reaction(incorrect_format_reaction)
-
-  pass
-
 
 # Update the history of an issue with the following message.
 async def update_issue(message):
