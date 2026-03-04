@@ -48,7 +48,7 @@ def list(list_regex, message, project_id, requests, url, headers):
     "limit": 1000
 }
   
-  discord_username = message.author.name
+  discord_username = message.author.display_name
 
   url = f"{url}/issues.json"
   response = requests.get(url, headers=headers, params=params)
@@ -130,7 +130,7 @@ def report(report_regex, message, discord, requests, url, headers):
           beta_tester = field["value"]
           break
 
-  description = issue.get("description", "")[:500]
+  #description = issue.get("description", "")[:500]
 
   embed = discord.Embed(
       title=f"#{issue_id}: {subject}",
@@ -144,7 +144,7 @@ def report(report_regex, message, discord, requests, url, headers):
   if beta_tester:
       embed.add_field(name="Submitted", value=beta_tester, inline=False)
 
-  if description:
-      embed.add_field(name="Description", value=description, inline=False)
+  #if description:
+      #embed.add_field(name="Description", value=description, inline=False)
 
   return embed
