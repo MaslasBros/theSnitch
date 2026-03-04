@@ -53,7 +53,7 @@ def list(list_regex, message, project_id, requests, url, headers):
   url = f"{url}/issues.json"
   response = requests.get(url, headers=headers, params=params)
 
-  print(f"C URL: {url}\nHeaders: {headers}\nParams: {params}")
+  print(f"C URL: {url}\nHeaders: {headers}\nParams: {params}\nDiscord User: {discord_username}")
 
    # No API response
   if response.status_code != 200:
