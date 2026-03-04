@@ -68,12 +68,12 @@ def list(list_regex, message, project_id, requests, url, headers):
             break
 
   if not filtered_issues:
-    list = "📋 You have no open bug and/or suggestions at the moment."
+    list = "📋 You have no open bugs and/or suggestions at the moment."
     return list
 
   # Build message with issue numbers and subjects
   issues_list = [f"#{issue['id']} – {issue['subject']}" for issue in filtered_issues]
-  list = "📋 Your bug and/or suggestions:\n" + "\n".join(issues_list);
+  list = "📋 Your bugs and/or suggestions:\n" + "\n".join(issues_list);
 
   return list
 
