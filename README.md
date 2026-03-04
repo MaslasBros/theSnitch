@@ -42,14 +42,15 @@ To configure TheSnitch, edit the `config.json` file. You can set up API details,
 Here's an example of the `config.json` file:
 
 ```{
-    "channel_id": "YOUR_DISCORD_CHANNEL_ID",
-    "requests": 
-    {
-        "verb": "YOUR_REST_API_VERB",
-        "url_template": "https://YOUR_URL_TEMPLATE.COM"
-    },
+    "project_id": "YOUR_PROJECT_ID",
+    "url": "https://YOUR_REST_API_URL.COM",
     "token": "YOUR_DISCORD_BOT_TOKEN",
-    "regex_pattern": "YOUR_REGEX_PATTERN",
+    "regex_patterns":
+    {
+        "update": "YOUR_UPDATE_REGEX_PATTERN",
+        "list": "YOUR_LIST_REGEX_PATTERN",
+        "report": "YOUR_REPORT_REGEX_PATTERN"
+    },
     "headers":
     {
         "X-Redmine-API-Key": "YOUR_API_KEY",

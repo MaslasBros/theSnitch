@@ -24,19 +24,59 @@ logging_enabled = logging_config.get("enabled")
 log_level = logging_config.get("log_level")
 log_path = logging_config.get("log_path")
 log_file = logging_config.get("log_file")
-# Get the reactions
+
+#
+# Rest API
+#
+
+# Define the headers for making requests to the Redmine API
+headers = config["headers"]
+# Create the template of the url which will be used for the communication with the Redmine API
+request_url = config["url"]
+
+#
+# Regex Patterns
+#
+
+# Retreave and compile the configured regex patterns
+regex_patterns = config.get("regex_patterns", {})
+
+update_regex = re.compile(regex_patterns["update"].strip())
+list_regex = re.compile(regex_patterns["list"].strip())
+report_regex = re.compile(regex_patterns["report"].strip())
+
+# Validates the compiled regular expressions
+def is_valid_regex(pattern: str) -> bool:
+    try:
+        re.compile(pattern)
+        return True
+    except re.error:
+        return False
+
+if not is_valid_regex(update_regex): 
+  raise InvalidConfigurationException("Invalid update regex pattern configuration in config.json")
+
+if not is_valid_regex(list_regex): 
+  raise InvalidConfigurationException("Invalid list regex pattern configuration in config.json")
+
+if not is_valid_regex(report_regex): 
+  raise InvalidConfigurationException("Invalid report regex pattern configuration in config.json")
+
+#
+# Reactions
+#
 reactions = config.get("reactions", {})
 correct_format_reaction = reactions.get("upvote").strip()
 incorrect_format_reaction = reactions.get("downvote").strip()
 
+# Validates the retreaved reactions
 def is_valid_reaction(reaction_string):
   # Check if the string consists of valid Unicode emoji characters
   return all(ord(char) <= 0x1F64F for char in reaction_string)
 
-if (
-  not is_valid_reaction(correct_format_reaction)
-  ):
+if not is_valid_reaction(correct_format_reaction):
     raise InvalidConfigurationException("Invalid reaction configuration in config.json")
+
 if not is_valid_reaction(incorrect_format_reaction):
   raise InvalidConfigurationException("Invalid reaction configuration in config.json")
 
@@ -61,23 +101,66 @@ bot_intents = discord.Intents.all()
 # Create a Discord client instance with the specified intents
 client = discord.Client(intents=bot_intents)
 
-# Event handler for when a message is sent in a channel
-async def process_message(message):
+##
+# Methods
+##
 
- try:
+# Check if the bot is mentioned into the message sent
+async def is_bot_mentioned(message):
+  # Ignore messages sent by itself
+  if message.author.bot:
+    return False
 
-  request = config["requests"]
-  # Define the verb which will be used for the communication with the Redmine API 
-  request_verb = request.get("verb")
-  # Define the headers for making requests to the Redmine API
-  headers = config["headers"]
-  # Create the template of the url which will be used for the communication with the Redmine API
-  request_url_template = request.get("url_template")
+  # Check if bot is mentioned
+  return client.user in message.mentions
+
+
+# Based on the message content it should decide the action that the bot shall execute.
+async def select_action(message):
+  if report_regex.search(message):
+    report_issue(message)
+  elif list_regex.search(message):
+    list_issues(message)
+  else:
+    update_issue(message)
+
+
+async def report_issue(message):
+  if not is_bot_mentioned(message):
+    await message.add_reaction(incorrect_format_reaction)
+    return
   
+  response = module.report(report_regex, message, discord, requests, request_url, headers)
+
+  if response:
+    await message.add_reaction(correct_format_reaction)
+    await message.channel.send(embed=response)
+  else:
+    await message.add_reaction(incorrect_format_reaction)
+
+async def list_issues(message):
+  if not is_bot_mentioned(message):
+    await message.add_reaction(incorrect_format_reaction)
+    return
+  
+  project_id = config["project_id"]
+  response = module.list(list_regex, message, project_id, requests, request_url, headers)
+  
+  if response:
+    await message.add_reaction(correct_format_reaction)
+    await message.channel.send(response)
+  else:
+    await message.add_reaction(incorrect_format_reaction)
+
+  pass
+
+
+# Update the history of an issue with the following message.
+async def update_issue(message):
   # Print the original message content
   logger.info(f'''Original message content: %s {message.content}''')
 
-# Emojis can be classed as characters with an ID exceeding 0xA9; the following removes such characters from the message's raw text.
+  # Emojis can be classed as characters with an ID exceeding 0xA9; the following removes such characters from the message's raw text.
   filtered_content = "" 
   for character in message.content:
     if ord(character) > 0x00A9:
@@ -85,22 +168,17 @@ async def process_message(message):
     filtered_content += character
   message.content = filtered_content
 
-# Print the filtered message content
+  # Print the filtered message content
   logger.info(f'''Filtered message content: {message.content}''')
 
-# Get the dictionary from the config file to store payloads for Redmine
+  # Get the dictionary from the config file to store payloads for Redmine
   payloads = {}
-
-  regex_pattern = config["regex_pattern"]
-
-   # Define a regular expression to find numbers following hashtags
-  validation_regex = re.compile(regex_pattern)
 
   # Define the validation point which will be used for the validation of the format of the messages
   validation_point = None
 
   # Call the method responsible for the building of the payload
-  validation_point, payloads = module.execute(validation_regex, message, payloads)
+  validation_point, payloads = module.update(update_regex, message, payloads)
 
   if validation_point:
     # Message has the correct format, add a thumbs up reaction and remove potential thumbs down
@@ -121,24 +199,19 @@ async def process_message(message):
   for key, value in payloads.items():
    # logger.info(f'''Issue number: {key}''')
     #logger.info(f'''Payload: {value}''')
-
-    #Assign the number of the key to the url format to complete the url
-    url = request_url_template.format(key = key)
+    url = f"{request_url}/issues/{key}.json"
 
     response = requests.put(
       url, 
       json=value, 
       headers=headers)
     
-    logger.info("Request: %s %s\nPayload: %s\nHeaders: %s\nResponse: %s %s", request_verb, url,
+    logger.info("Request: %s %s\nPayload: %s\nHeaders: %s\nResponse: %s %s", "PUT", url,
       json.dumps(indent=4, obj=value), 
       headers,
       response.status_code, 
       response.text
-      )
-    
- except InvalidConfigurationException as e:
-    logger.error(f"Configuration error: {e}") 
+      ) 
 
 # Event handler for when the bot is ready
 @client.event
@@ -148,14 +221,14 @@ async def on_ready():
 # Check to see if the bot is in the correct channel
 @client.event
 async def on_message(message):
-  await process_message(message)
+  await select_action(message)
 
 
 # Function responsible for the editing of a posted message
 @client.event
 async def on_message_edit(before, after):
     # Process the edited message using the common logic
-    await process_message(after)    
+    await update_issue(after)    
 
 # Start the bot with the provided token
 client.run(token)
