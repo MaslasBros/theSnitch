@@ -116,7 +116,7 @@ async def is_bot_mentioned(message):
 
 
 # Based on the message content it should decide the action that the bot shall execute.
-async def select_action(message):
+async def select_command(message):
   if report_regex.search(message):
     report_issue(message)
   elif list_regex.search(message):
@@ -221,7 +221,7 @@ async def on_ready():
 # Check to see if the bot is in the correct channel
 @client.event
 async def on_message(message):
-  await select_action(message)
+  await select_command(message)
 
 
 # Function responsible for the editing of a posted message
