@@ -84,7 +84,7 @@ def report(report_regex, message, discord, requests, url, headers):
   if not match:
      return embed
   
-  issue_id = match.group(2).replace("#", "")
+  issue_id = match.group(1)
 
   url = f"{url}/issues/{issue_id}.json"
   response = requests.get(url, headers=headers)
