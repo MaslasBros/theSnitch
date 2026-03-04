@@ -115,7 +115,7 @@ def report(report_regex, message, discord, requests, url, headers):
      return embed
 
   tracker_name = tracker.get("name", "No tracker")
-  subject = issue.get("subject", "No subject")[:20]
+  subject = issue.get("subject", "No subject")
   status = issue.get("status", {}).get("name", "Unknown")
   #priority = issue.get("priority", {}).get("name", "Unknown")
 
@@ -126,7 +126,7 @@ def report(report_regex, message, discord, requests, url, headers):
           beta_tester = field["value"]
           break
 
-  #description = issue.get("description", "")[:500]
+  description = issue.get("description", "").split("## Description", 1)[1]
 
   embed = discord.Embed(
       title=f"#{issue_id}: {subject}",
@@ -140,9 +140,7 @@ def report(report_regex, message, discord, requests, url, headers):
   if beta_tester:
       embed.add_field(name="Submitted", value=beta_tester, inline=False)
 
-  #if description:
-      #embed.add_field(name="Description", value=description, inline=False)
-  subject_long = issue.get("subject", "No subject")[:500]
-  embed.add_field(name="Subject", value=subject_long, inline=False)
+  if description:
+      embed.add_field(name="Description", value=description, inline=False)
 
   return embed
