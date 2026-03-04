@@ -115,7 +115,7 @@ def report(report_regex, message, discord, requests, url, headers):
      return embed
 
   tracker_name = tracker.get("name", "No tracker")
-  subject = issue.get("subject", "No subject")[20]
+  subject = issue.get("subject", "No subject")[:20]
   status = issue.get("status", {}).get("name", "Unknown")
   #priority = issue.get("priority", {}).get("name", "Unknown")
 
@@ -142,7 +142,7 @@ def report(report_regex, message, discord, requests, url, headers):
 
   #if description:
       #embed.add_field(name="Description", value=description, inline=False)
-  subject_long = issue.get("subject", "No subject")[500]
+  subject_long = issue.get("subject", "No subject")[:500]
   embed.add_field(name="Subject", value=subject_long, inline=False)
 
   return embed
