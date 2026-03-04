@@ -114,7 +114,7 @@ client = discord.Client(intents=bot_intents)
 ##
 
 # Check if the bot is mentioned into the message sent
-def is_bot_mentioned(message):
+async def is_bot_mentioned(message):
   # Ignore messages sent by itself
   if message.author.bot:
     return False
@@ -134,7 +134,7 @@ async def select_command(message):
 
 
 async def report_issue(message):
-  if not is_bot_mentioned(message):
+  if not await is_bot_mentioned(message):
     await message.add_reaction(incorrect_format_reaction)
     return
   
@@ -147,7 +147,7 @@ async def report_issue(message):
     await message.add_reaction(incorrect_format_reaction)
 
 async def list_issues(message):
-  if not is_bot_mentioned(message):
+  if not await is_bot_mentioned(message):
     await message.add_reaction(incorrect_format_reaction)
     return
   
@@ -210,13 +210,6 @@ async def update_issue(message):
       url, 
       json=value, 
       headers=headers)
-    
-    logger.info("Request: %s %s\nPayload: %s\nHeaders: %s\nResponse: %s %s", "PUT", url,
-      json.dumps(indent=4, obj=value), 
-      headers,
-      response.status_code, 
-      response.text
-      ) 
 
 # Event handler for when the bot is ready
 @client.event
