@@ -22,7 +22,6 @@ def update(update_regex, message, payloads):
         }
       }
     })
-    print("Payload being sent:", payloads)
   return validation_point, payloads
 
 ##
@@ -36,7 +35,7 @@ def list(list_regex, message, project_id, requests, url, headers):
     return list
 
   # The parameters
-  trackers = ["Bug", "Suggestion"]  # or numeric IDs if needed
+  trackers = ["1", "12"]  # or numeric IDs if needed
 
   params = {
     "project_id": project_id,
@@ -50,8 +49,6 @@ def list(list_regex, message, project_id, requests, url, headers):
 
   url = f"{url}/issues.json"
   response = requests.get(url, headers=headers, params=params)
-
-  print(f"A URL: {url}\nHeaders: {headers}\nParams: {params}\nDiscord User: {discord_username}")
 
    # No API response
   if response.status_code != 200:
