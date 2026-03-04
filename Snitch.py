@@ -114,13 +114,12 @@ client = discord.Client(intents=bot_intents)
 ##
 
 # Check if the bot is mentioned into the message sent
-async def is_bot_mentioned(message):
+async def is_itself(message):
   # Ignore messages sent by itself
   if message.author.bot:
     return False
-
-  # Check if bot is mentioned
-  return client.user in message.mentions
+  
+  return True
 
 
 # Based on the message content it should decide the action that the bot shall execute.
@@ -134,8 +133,7 @@ async def select_command(message):
 
 
 async def report_issue(message):
-  if not await is_bot_mentioned(message):
-    await message.add_reaction(incorrect_format_reaction)
+  if not await is_itself(message):
     return
   
   response = module.report(report_regex, message, discord, requests, request_url, headers)
@@ -147,8 +145,7 @@ async def report_issue(message):
     await message.add_reaction(incorrect_format_reaction)
 
 async def list_issues(message):
-  if not await is_bot_mentioned(message):
-    await message.add_reaction(incorrect_format_reaction)
+  if not await is_itself(message):
     return
   
   project_id = config["project_id"]
