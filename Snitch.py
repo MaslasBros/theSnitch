@@ -127,10 +127,13 @@ async def is_bot_mentioned(message):
 async def select_command(message):
   if report_regex.search(message.content):
     await report_issue(message)
+    print("Report")
   elif list_regex.search(message.content):
     await list_issues(message)
+    print("List")
   else:
     await update_issue(message)
+    print("Update")
 
 
 async def report_issue(message):
