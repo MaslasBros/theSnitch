@@ -43,7 +43,7 @@ def list(list_regex, message, project_id, requests, url, headers):
     "tracker_id": ",".join(trackers),
     "status_id": "open",
     "sort": "created_on:desc",
-    "limit": 1000
+    "limit": 10000
 }
   
   discord_username = message.author.display_name
@@ -66,19 +66,14 @@ def list(list_regex, message, project_id, requests, url, headers):
         if field.get("name") == "Discord Name" and field.get("value") == discord_username:
             filtered_issues.append(issue)
             break
-        
-  print("B")
 
   if not filtered_issues:
+    list = "📋 You have no open bug and/or suggestions at the moment."
     return list
-
-  print("C")
 
   # Build message with issue numbers and subjects
   issues_list = [f"#{issue['id']} – {issue['subject']}" for issue in filtered_issues]
-  list = "📋 Your issues:\n" + "\n".join(issues_list);
-
-  print(f"D List: {list}")
+  list = "📋 Your bug and/or suggestions:\n" + "\n".join(issues_list);
 
   return list
 
