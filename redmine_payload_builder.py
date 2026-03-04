@@ -29,14 +29,12 @@ def update(update_regex, message, payloads):
 # Lists from the Redmine REST API all the issue numbers of a specific user.
 ###
 def list(list_regex, message, project_id, requests, url, headers):
-  print("A")
   list = None
   match = list_regex.search(message.content)
 
   if not match:
     return list
 
-  print("B")
   # The parameters
   trackers = ["Bug", "Suggestion"]  # or numeric IDs if needed
 
@@ -53,13 +51,11 @@ def list(list_regex, message, project_id, requests, url, headers):
   url = f"{url}/issues.json"
   response = requests.get(url, headers=headers, params=params)
 
-  print(f"C URL: {url}\nHeaders: {headers}\nParams: {params}\nDiscord User: {discord_username}")
+  print(f"A URL: {url}\nHeaders: {headers}\nParams: {params}\nDiscord User: {discord_username}")
 
    # No API response
   if response.status_code != 200:
       return list
-  
-  print("D")
   
   data = response.json()
   issues = data.get("issues", [])
@@ -71,18 +67,18 @@ def list(list_regex, message, project_id, requests, url, headers):
             filtered_issues.append(issue)
             break
         
-  print("E")
+  print("B")
 
   if not filtered_issues:
     return list
 
-  print("F")
+  print("C")
 
   # Build message with issue numbers and subjects
   issues_list = [f"#{issue['id']} – {issue['subject']}" for issue in filtered_issues]
   list = "📋 Your issues:\n" + "\n".join(issues_list);
 
-  print(f"G List: {list}")
+  print(f"D List: {list}")
 
   return list
 
@@ -146,5 +142,7 @@ def report(report_regex, message, discord, requests, url, headers):
 
   #if description:
       #embed.add_field(name="Description", value=description, inline=False)
+  
+  embed.add_field(name="Subject", value=subject, inline=False)
 
   return embed
