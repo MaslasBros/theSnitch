@@ -57,14 +57,14 @@ if not is_valid_regex(pattern):
 
 update_regex = re.compile(pattern)
 
-pattern = regex_patterns["list"].strip();
+pattern = regex_patterns["list"].strip()
 
 if not is_valid_regex(pattern): 
   raise InvalidConfigurationException("Invalid list regex pattern configuration in config.json")
 
 list_regex = re.compile(pattern)
 
-pattern = regex_patterns["report"].strip();
+pattern = regex_patterns["report"].strip()
 
 if not is_valid_regex(pattern): 
   raise InvalidConfigurationException("Invalid report regex pattern configuration in config.json")
@@ -114,7 +114,7 @@ client = discord.Client(intents=bot_intents)
 ##
 
 # Check if the bot is mentioned into the message sent
-async def is_bot_mentioned(message):
+def is_bot_mentioned(message):
   # Ignore messages sent by itself
   if message.author.bot:
     return False
@@ -126,11 +126,11 @@ async def is_bot_mentioned(message):
 # Based on the message content it should decide the action that the bot shall execute.
 async def select_command(message):
   if report_regex.search(message.content):
-    report_issue(message)
+    await report_issue(message)
   elif list_regex.search(message.content):
-    list_issues(message)
+    await list_issues(message)
   else:
-    update_issue(message)
+    await update_issue(message)
 
 
 async def report_issue(message):
