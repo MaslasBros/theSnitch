@@ -115,11 +115,10 @@ client = discord.Client(intents=bot_intents)
 
 # Check if the bot is mentioned into the message sent
 async def is_itself(message):
-  # Ignore messages sent by itself
   if message.author.bot:
-    return False
+    return True
   
-  return True
+  return False
 
 
 # Based on the message content it should decide the action that the bot shall execute.
