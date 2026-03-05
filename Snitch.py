@@ -124,16 +124,22 @@ async def is_itself(message):
 
 # Based on the message content it should decide the action that the bot shall execute.
 async def select_command(message):
-  if report_regex.search(message.content):
+  content = message.content
+
+  if report_regex.search(content):
+    logger.info(f"Report: {content}")
     await report_issue(message)
-  elif list_regex.search(message.content):
+  elif list_regex.search(content):
+    logger.info(f"List: {content}")
     await list_issues(message)
   else:
+    logger.info(f"Update: {content}")
     await update_issue(message)
 
 
 async def report_issue(message):
   if not await is_itself(message):
+    logger.warning(f"Report: Ignoring message from bot")
     return
   
   response = module.report(report_regex, message, discord, requests, request_url, headers)
@@ -141,11 +147,14 @@ async def report_issue(message):
   if response:
     await message.add_reaction(correct_format_reaction)
     await message.channel.send(embed=response)
+    logger.info(f"Report {correct_format_reaction}: {response}")
   else:
     await message.add_reaction(incorrect_format_reaction)
+    logger.warning(f"Report {incorrect_format_reaction}")
 
 async def list_issues(message):
   if not await is_itself(message):
+    logger.warning(f"List: Ignoring message from bot")
     return
   
   project_id = config["project_id"]
@@ -154,13 +163,16 @@ async def list_issues(message):
   if response:
     await message.add_reaction(correct_format_reaction)
     await message.channel.send(response)
+    logger.info(f"List {correct_format_reaction}: {response}")
   else:
     await message.add_reaction(incorrect_format_reaction)
+    logger.warning(f"List {incorrect_format_reaction}")
 
 # Update the history of an issue with the following message.
 async def update_issue(message):
-  # Print the original message content
-  logger.info(f'''Original message content: %s {message.content}''')
+  if not await is_itself(message):
+    logger.warning(f"Update: Ignoring message from bot")
+    return
 
   # Emojis can be classed as characters with an ID exceeding 0xA9; the following removes such characters from the message's raw text.
   filtered_content = "" 
@@ -169,9 +181,6 @@ async def update_issue(message):
       continue
     filtered_content += character
   message.content = filtered_content
-
-  # Print the filtered message content
-  logger.info(f'''Filtered message content: {message.content}''')
 
   # Get the dictionary from the config file to store payloads for Redmine
   payloads = {}
@@ -187,6 +196,7 @@ async def update_issue(message):
     if correct_format_reaction and incorrect_format_reaction:
       await message.add_reaction(correct_format_reaction)
       await message.clear_reaction(incorrect_format_reaction)
+      logger.info(f"Update {correct_format_reaction}")
       
     if random.randint(1,4096) == 1:
       await message.add_reaction('🌟')
@@ -196,6 +206,7 @@ async def update_issue(message):
     if correct_format_reaction and incorrect_format_reaction:
       await message.add_reaction(incorrect_format_reaction)
       await message.clear_reaction(correct_format_reaction)
+      logger.warning(f"Update {incorrect_format_reaction}")
 
   # Send the payloads to the Redmine API with PUT requests
   for key, value in payloads.items():

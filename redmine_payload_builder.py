@@ -36,13 +36,14 @@ def list(list_regex, message, project_id, requests, url, headers):
 
   # The parameters
   trackers = ["1", "12"]  # or numeric IDs if needed
+  limit = 5000    
 
   params = {
     "project_id": project_id,
     "tracker_id": ",".join(trackers),
     "status_id": "open",
     "sort": "created_on:desc",
-    "limit": 10000
+    "limit": limit
 }
   
   discord_username = message.author.display_name
@@ -58,11 +59,24 @@ def list(list_regex, message, project_id, requests, url, headers):
   issues = data.get("issues", [])
   filtered_issues = []
 
+  # Role restrictions
+  roles = message.author.roles
+
+  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 1:
+    limit = 5
+
+  i = 0
+
   for issue in issues:
     for field in issue.get("custom_fields", []):
         if field.get("name") == "Discord Name" and field.get("value") == discord_username:
             filtered_issues.append(issue)
+            i += 1
             break
+        
+    # Applies the Role restriction limit
+    if limit == i:
+       break
 
   if not filtered_issues:
     list = "📋 You have no open bugs and/or suggestions at the moment."
