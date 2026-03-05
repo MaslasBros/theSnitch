@@ -138,7 +138,7 @@ async def select_command(message):
 
 
 async def report_issue(message):
-  if not await is_itself(message):
+  if await is_itself(message):
     logger.warning(f"Report: Ignoring message from bot")
     return
   
@@ -153,7 +153,7 @@ async def report_issue(message):
     logger.warning(f"Report {incorrect_format_reaction}")
 
 async def list_issues(message):
-  if not await is_itself(message):
+  if await is_itself(message):
     logger.warning(f"List: Ignoring message from bot")
     return
   
@@ -170,7 +170,7 @@ async def list_issues(message):
 
 # Update the history of an issue with the following message.
 async def update_issue(message):
-  if not await is_itself(message):
+  if await is_itself(message):
     logger.warning(f"Update: Ignoring message from bot")
     return
 

@@ -131,6 +131,15 @@ def report(report_regex, message, discord, requests, url, headers):
       if field["name"] == "Discord Name":
           beta_tester = field["value"]
           break
+      
+
+  # Role restrictions
+  roles = message.author.roles
+  discord_username = message.author.display_name
+
+  # Simple Beta Testers are allowed to collect details only for their own issues.
+  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 1 and beta_tester != discord_username:
+    return embed
 
   description = issue.get("description", "").split("## Description", 1)[1]
 
