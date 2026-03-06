@@ -25,6 +25,19 @@ def update(update_regex, message, payloads):
   return validation_point, payloads
 
 ##
+# Validates a retrieved name from a discord message against the supplied name on the
+# project management.
+###
+def validate_by_discord(discord_field, author):
+  name = discord_field.lower()
+  valid = author.name.lower() == name
+
+  if not valid:
+    valid = author.display_name.lower() == name
+
+  return valid
+
+##
 # Lists from the Redmine REST API all the issue numbers of a specific user.
 ###
 def list(list_regex, message, project_id, requests, url, headers):
@@ -46,7 +59,7 @@ def list(list_regex, message, project_id, requests, url, headers):
     "limit": limit
 }
   
-  discord_username = message.author.display_name
+  discord_author = message.author
 
   url = f"{url}/issues.json"
   response = requests.get(url, headers=headers, params=params)
@@ -60,16 +73,16 @@ def list(list_regex, message, project_id, requests, url, headers):
   filtered_issues = []
 
   # Role restrictions
-  roles = message.author.roles
+  roles = discord_author.roles
 
-  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 1:
-    limit = 5
+  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 2:
+    limit = 10
 
   i = 0
 
   for issue in issues:
     for field in issue.get("custom_fields", []):
-        if field.get("name") == "Discord Name" and field.get("value") == discord_username:
+        if field.get("name") == "Discord Name" and validate_by_discord(field.get("value"), discord_author):
             filtered_issues.append(issue)
             i += 1
             break
@@ -134,11 +147,11 @@ def report(report_regex, message, discord, requests, url, headers):
       
 
   # Role restrictions
-  roles = message.author.roles
-  discord_username = message.author.display_name
+  discord_author = message.author
+  roles = discord_author.roles
 
   # Simple Beta Testers are allowed to collect details only for their own issues.
-  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 1 and beta_tester != discord_username:
+  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 2 and not validate_by_discord(beta_tester, discord_author):
     return embed
 
   description = issue.get("description", "").split("## Description", 1)[1]
