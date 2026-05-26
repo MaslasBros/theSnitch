@@ -209,7 +209,7 @@ async def update_issue(message):
 
   # Send the payloads to the Redmine API with PUT requests
   for key, value in payloads.items():
-   # logger.info(f'''Issue number: {key}''')
+    logger.info(f'''Issue number: {key}''')
     #logger.info(f'''Payload: {value}''')
     url = f"{request_url}/issues/{key}.json"
 
