@@ -13,9 +13,11 @@ def update(update_regex, message, payloads):
     # Append a link to the Discord message
     message_sent += f'\n\n> Discord: {message.jump_url}'
 
+    key = validation_point.replace("#", "").strip()
+
     # Update the payload dictionary with the issue number as the key, as to not have duplicates
     payloads.update({
-      validation_point.strip():
+      key:
       {
         'issue': {
           'notes': message_sent,
