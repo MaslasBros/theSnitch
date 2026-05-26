@@ -15,7 +15,7 @@ def update(update_regex, message, payloads):
 
     # Update the payload dictionary with the issue number as the key, as to not have duplicates
     payloads.update({
-      validation_point:  
+      validation_point.group(1).strip():
       {
         'issue': {
           'notes': message_sent,
@@ -72,24 +72,11 @@ def list(list_regex, message, project_id, requests, url, headers):
   issues = data.get("issues", [])
   filtered_issues = []
 
-  # Role restrictions
-  roles = discord_author.roles
-
-  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 2:
-    limit = 10
-
-  i = 0
-
   for issue in issues:
     for field in issue.get("custom_fields", []):
         if field.get("name") == "Discord Name" and validate_by_discord(field.get("value"), discord_author):
             filtered_issues.append(issue)
-            i += 1
             break
-        
-    # Applies the Role restriction limit
-    if limit == i:
-       break
 
   if not filtered_issues:
     list = "📋 You have no open bugs and/or suggestions at the moment."
@@ -144,15 +131,6 @@ def report(report_regex, message, discord, requests, url, headers):
       if field["name"] == "Discord Name":
           beta_tester = field["value"]
           break
-      
-
-  # Role restrictions
-  discord_author = message.author
-  roles = discord_author.roles
-
-  # Simple Beta Testers are allowed to collect details only for their own issues.
-  if any(role.name == "Beta Tester" for role in roles) and len(roles) == 2 and not validate_by_discord(beta_tester, discord_author):
-    return embed
 
   description = issue.get("description", "").split("## Description", 1)[1]
 
