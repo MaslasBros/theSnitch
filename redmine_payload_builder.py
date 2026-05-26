@@ -15,7 +15,7 @@ def update(update_regex, message, payloads):
 
     # Update the payload dictionary with the issue number as the key, as to not have duplicates
     payloads.update({
-      validation_point.group(1).strip():
+      validation_point.strip():
       {
         'issue': {
           'notes': message_sent,
