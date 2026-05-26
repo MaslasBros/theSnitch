@@ -59,10 +59,17 @@ update_regex = re.compile(pattern)
 
 pattern = regex_patterns["list"].strip()
 
-if not is_valid_regex(pattern): 
+if not is_valid_regex(pattern):
   raise InvalidConfigurationException("Invalid list regex pattern configuration in config.json")
 
 list_regex = re.compile(pattern)
+
+pattern = regex_patterns["closed"].strip()
+
+if not is_valid_regex(pattern):
+  raise InvalidConfigurationException("Invalid list regex pattern configuration in config.json")
+
+closed_regex = re.compile(pattern)
 
 pattern = regex_patterns["report"].strip()
 
@@ -131,6 +138,9 @@ async def select_command(message):
   elif list_regex.search(content):
     logger.info(f"List: {content}")
     await list_issues(message)
+  elif closed_regex.search(content):
+    logger.info(f"List Closed: {content}")
+    await list_closed_issues(message)
   else:
     logger.info(f"Update: {content}")
     await update_issue(message)
@@ -157,7 +167,7 @@ async def list_issues(message):
     return
   
   project_id = config["project_id"]
-  response = module.list(list_regex, message, project_id, requests, request_url, headers)
+  response = module.list(list_regex, message, project_id, "open", requests, request_url, headers)
   
   if response:
     await message.add_reaction(correct_format_reaction)
@@ -166,6 +176,22 @@ async def list_issues(message):
   else:
     await message.add_reaction(incorrect_format_reaction)
     logger.warning(f"List {incorrect_format_reaction}")
+
+async def list_closed_issues(message):
+  if await is_itself(message):
+    logger.warning(f"List: Ignoring message from bot")
+    return
+  
+  project_id = config["project_id"]
+  response = module.list_closed(list_regex, message, project_id, "closed", requests, request_url, headers)
+  
+  if response:
+    await message.add_reaction(correct_format_reaction)
+    await message.channel.send(response)
+    logger.info(f"List Closed {correct_format_reaction}: {response}")
+  else:
+    await message.add_reaction(incorrect_format_reaction)
+    logger.warning(f"List Closed {incorrect_format_reaction}")
 
 # Update the history of an issue with the following message.
 async def update_issue(message):

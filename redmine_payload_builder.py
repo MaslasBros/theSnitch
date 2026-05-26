@@ -42,7 +42,7 @@ def validate_by_discord(discord_field, author):
 ##
 # Lists from the Redmine REST API all the issue numbers of a specific user.
 ###
-def list(list_regex, message, project_id, requests, url, headers):
+def list(list_regex, message, project_id, status_id, requests, url, headers):
   list = None
   match = list_regex.search(message.content)
 
@@ -56,7 +56,7 @@ def list(list_regex, message, project_id, requests, url, headers):
   params = {
     "project_id": project_id,
     "tracker_id": ",".join(trackers),
-    "status_id": "open",
+    "status_id": status_id,
     "sort": "created_on:desc",
     "limit": limit
 }
